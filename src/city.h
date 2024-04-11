@@ -4,10 +4,10 @@
 
 class City {
   public:
-    Position pos;
-    City(std::string name, Position position, size_t capacity); 
-    bool enter_city(Train* train, Railway* railway);
-    bool leave_city(Train* train, Railway* railway);
+//    Position pos;
+    City(int id, std::string name, size_t capacity);
+//    bool enter_city(Train* train, Railway* railway);
+//    bool leave_city(Train* train, Railway* railway);
 
   private:
     int id;

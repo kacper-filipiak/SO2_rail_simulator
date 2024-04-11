@@ -1,19 +1,29 @@
+//
+// Created by Kacper Filipiak Private on 11/04/2024.
+//
+
 #include <iostream>
 #include <thread>
+#include "src/utils.h"
 #include "include/cxxopts.hpp"
+#include <SFML/Graphics.hpp>
+#include "src/train.h"
+#include <memory>
+#include <vector>
+#include <string>
+#include <fstream>
+#include <sstream>
+#include "src/city.h"
+#include "src/railway.h"
 
 int main(int argc, char** argv){
     // OPTIONS
     cxxopts::Options options("main_app", "Multithread, customizable animation of bees' lives");
 
     options.add_options()
-            ("b,bees", "Number of bees", cxxopts::value<size_t>()->default_value("2"))
-            ("f,flowers", "Number of flowers", cxxopts::value<size_t>()->default_value("5"))
-            ("H,hives", "Number of hives", cxxopts::value<size_t>()->default_value("2"))
-            ("k,beekeepers", "Number of beekeepers", cxxopts::value<size_t>()->default_value("1"))
-            ("p,pollen", "Pollen refresh rate [s]", cxxopts::value<size_t>()->default_value("5"))
-            ("c, capacity", "Hives capacity", cxxopts::value<size_t>()->default_value("3"))
-            ("w, work", "Bee work duration", cxxopts::value<size_t>()->default_value("7"))
+            ("t,trains", "Trains csv filename", cxxopts::value<std::string>()->default_value("trains.csv"))
+            ("c,cities", "Cities csv filename", cxxopts::value<std::string>()->default_value("cities.csv"))
+            ("r,railways", "Railways csv filename", cxxopts::value<std::string>()->default_value("railways.csv"))
             ("h,help", "Print help")
             ;
 
@@ -24,4 +34,115 @@ int main(int argc, char** argv){
         std::cout << options.help() << std::endl;
         exit(0);
     }
+
+    auto trains_filename = result["trains"].as<std::string >();
+
+    std::ifstream trains_csv(trains_filename);
+    std::vector<std::unique_ptr<Train> > trains = std::vector<std::unique_ptr<Train> >();
+    for(std::string line; std::getline(trains_csv, line);) {
+        std::istringstream iss(line);
+        std::string train_name;
+        iss >> train_name;
+        auto schedule = std::vector<int>();
+        for(int stop; !(iss>>stop);){
+            schedule.push_back(stop);
+        }
+
+        std::unique_ptr<Train> train(new Train(train_name, schedule));
+        trains.push_back(std::move(train));
+    }
+
+    for (auto& train : trains) {
+        std::cout<<train->name<<'\n';
+    }
+
+
+    auto cities_filename = result["cities"].as<std::string >();
+
+    std::ifstream cities_csv(cities_filename);
+    std::vector<std::unique_ptr<City> > cities = std::vector<std::unique_ptr<City> >();
+    int id = 0;
+    for(std::string line; std::getline(cities_csv, line); id++) {
+        std::istringstream iss(line);
+        std::string city_name;
+        size_t capacity;
+        iss >> city_name >> capacity;
+        std::unique_ptr<City> city(new City(id, city_name, capacity));
+        cities.push_back(std::move(city));
+    }
+
+    std::cout<<cities.size()<<'\n';
+
+    auto** graph = new std::vector<Railway> *[cities.size()];
+    for (auto i = 0; i < cities.size(); i++){
+        graph[i] = new std::vector<Railway>[cities.size()];
+        for (auto j = 0; j < cities.size(); j++) {
+            graph[i][j] = std::vector<Railway>();
+        }
+    }
+
+
+    auto railways_filename = result["railways"].as<std::string >();
+
+    std::ifstream railways_csv(railways_filename);
+    std::vector<std::unique_ptr<Railway> > railway = std::vector<std::unique_ptr<Railway> >();
+    for(std::string line; std::getline(railways_csv, line);) {
+        std::istringstream iss(line);
+        int a, b;
+        unsigned int cost;
+        iss>>a>>b>>cost;
+        Railway railway = {.cost= cost};
+        graph[a][b].push_back(railway);
+    }
+
+//    // Create the main window
+//    sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "SFML window");
+//
+//    while (window.isOpen())
+//    {
+//        sf::Event event;
+//        while (window.pollEvent(event))
+//        {
+//            if (event.type == sf::Event::Closed)
+//                window.close();
+//        }
+//
+//        sf::Texture grass_texture;
+//        if (!grass_texture.loadFromFile("res/grass.png"))
+//        {
+//            std::cout<< "ERROR: Could not load grass_texture grass.png";
+//            break;
+//        }
+//
+//        window.clear();
+//
+//        sf::Sprite grass_sprite;
+//        grass_sprite.setTexture(grass_texture);
+//
+//        for(int y = 0; y < NUMBER_OF_BLOCKS; y++)
+//            for(int i = 0; i < NUMBER_OF_BLOCKS; i++)
+//            {
+//                grass_sprite.setPosition(i * BLOCK_SIZE, y * BLOCK_SIZE);
+//                window.draw(grass_sprite);
+//            }
+//
+//
+//        sf::Texture bee_texture;
+//        if (!bee_texture.loadFromFile("res/bee.png"))
+//        {
+//            break;
+//        }
+//
+//        sf::Sprite bee_sprite;
+//        bee_sprite.setTexture(bee_texture);
+//        for(int i = 0; i < bees_count; i++)
+//        {
+//            bee_sprite.setPosition(bees[i].pos.x * BLOCK_SIZE, bees[i].pos.y * BLOCK_SIZE);
+//            window.draw(bee_sprite);
+//        }
+//
+//        window.display();
+//    }
+
 }
+

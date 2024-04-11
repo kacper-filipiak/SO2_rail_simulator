@@ -153,6 +153,54 @@ main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_app.dir/build.make CMakeFiles/main_app.dir/main.cpp.s
 .PHONY : main.cpp.s
 
+src/city.o: src/city.cpp.o
+.PHONY : src/city.o
+
+# target to build an object file
+src/city.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_app.dir/build.make CMakeFiles/main_app.dir/src/city.cpp.o
+.PHONY : src/city.cpp.o
+
+src/city.i: src/city.cpp.i
+.PHONY : src/city.i
+
+# target to preprocess a source file
+src/city.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_app.dir/build.make CMakeFiles/main_app.dir/src/city.cpp.i
+.PHONY : src/city.cpp.i
+
+src/city.s: src/city.cpp.s
+.PHONY : src/city.s
+
+# target to generate assembly for a file
+src/city.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_app.dir/build.make CMakeFiles/main_app.dir/src/city.cpp.s
+.PHONY : src/city.cpp.s
+
+src/train.o: src/train.cpp.o
+.PHONY : src/train.o
+
+# target to build an object file
+src/train.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_app.dir/build.make CMakeFiles/main_app.dir/src/train.cpp.o
+.PHONY : src/train.cpp.o
+
+src/train.i: src/train.cpp.i
+.PHONY : src/train.i
+
+# target to preprocess a source file
+src/train.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_app.dir/build.make CMakeFiles/main_app.dir/src/train.cpp.i
+.PHONY : src/train.cpp.i
+
+src/train.s: src/train.cpp.s
+.PHONY : src/train.s
+
+# target to generate assembly for a file
+src/train.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_app.dir/build.make CMakeFiles/main_app.dir/src/train.cpp.s
+.PHONY : src/train.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -165,6 +213,12 @@ help:
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... src/city.o"
+	@echo "... src/city.i"
+	@echo "... src/city.s"
+	@echo "... src/train.o"
+	@echo "... src/train.i"
+	@echo "... src/train.s"
 .PHONY : help
 
 
