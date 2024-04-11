@@ -9,6 +9,7 @@ set(SOURCES
         main.cpp
         src/train.cpp
         src/city.cpp
+        src/connectionmatrix.cpp
 )
 
 add_executable(main_app ${SOURCES})

@@ -13,7 +13,7 @@ class City {
     int id;
     std::string name;
     //List off trains that are currently in the city
-    std::vector<Train> trains;
+    std::vector<std::weak_ptr<Train> > trains;
     size_t capacity;
 };
 

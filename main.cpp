@@ -15,6 +15,7 @@
 #include <sstream>
 #include "src/city.h"
 #include "src/railway.h"
+#include "src/connectionmatrix.h"
 
 int main(int argc, char** argv){
     // OPTIONS
@@ -73,26 +74,18 @@ int main(int argc, char** argv){
 
     std::cout<<cities.size()<<'\n';
 
-    auto** graph = new std::vector<Railway> *[cities.size()];
-    for (auto i = 0; i < cities.size(); i++){
-        graph[i] = new std::vector<Railway>[cities.size()];
-        for (auto j = 0; j < cities.size(); j++) {
-            graph[i][j] = std::vector<Railway>();
-        }
-    }
-
+    std::shared_ptr<ConnectionMatrix> graph(new ConnectionMatrix(cities.size()));
 
     auto railways_filename = result["railways"].as<std::string >();
 
     std::ifstream railways_csv(railways_filename);
-    std::vector<std::unique_ptr<Railway> > railway = std::vector<std::unique_ptr<Railway> >();
     for(std::string line; std::getline(railways_csv, line);) {
         std::istringstream iss(line);
         int a, b;
         unsigned int cost;
         iss>>a>>b>>cost;
         Railway railway = {.cost= cost};
-        graph[a][b].push_back(railway);
+        graph->addRailway(a, b, railway);
     }
 
 //    // Create the main window
