@@ -10,6 +10,8 @@ set(CMAKE_DEPENDS_LANGUAGES
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/Users/kacperfilipiakprivate/Projects/University/SO2_rail_simulator/main.cpp" "CMakeFiles/main_app.dir/main.cpp.o" "gcc" "CMakeFiles/main_app.dir/main.cpp.o.d"
   "/Users/kacperfilipiakprivate/Projects/University/SO2_rail_simulator/src/city.cpp" "CMakeFiles/main_app.dir/src/city.cpp.o" "gcc" "CMakeFiles/main_app.dir/src/city.cpp.o.d"
+  "/Users/kacperfilipiakprivate/Projects/University/SO2_rail_simulator/src/connectionmatrix.cpp" "CMakeFiles/main_app.dir/src/connectionmatrix.cpp.o" "gcc" "CMakeFiles/main_app.dir/src/connectionmatrix.cpp.o.d"
+  "/Users/kacperfilipiakprivate/Projects/University/SO2_rail_simulator/src/railway.cpp" "CMakeFiles/main_app.dir/src/railway.cpp.o" "gcc" "CMakeFiles/main_app.dir/src/railway.cpp.o.d"
   "/Users/kacperfilipiakprivate/Projects/University/SO2_rail_simulator/src/train.cpp" "CMakeFiles/main_app.dir/src/train.cpp.o" "gcc" "CMakeFiles/main_app.dir/src/train.cpp.o.d"
   )
 

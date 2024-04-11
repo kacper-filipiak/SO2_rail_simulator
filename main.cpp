@@ -36,45 +36,23 @@ int main(int argc, char** argv){
         exit(0);
     }
 
-    auto trains_filename = result["trains"].as<std::string >();
-
-    std::ifstream trains_csv(trains_filename);
-    std::vector<std::unique_ptr<Train> > trains = std::vector<std::unique_ptr<Train> >();
-    for(std::string line; std::getline(trains_csv, line);) {
-        std::istringstream iss(line);
-        std::string train_name;
-        iss >> train_name;
-        auto schedule = std::vector<int>();
-        for(int stop; !(iss>>stop);){
-            schedule.push_back(stop);
-        }
-
-        std::unique_ptr<Train> train(new Train(train_name, schedule));
-        trains.push_back(std::move(train));
-    }
-
-    for (auto& train : trains) {
-        std::cout<<train->name<<'\n';
-    }
-
-
     auto cities_filename = result["cities"].as<std::string >();
 
     std::ifstream cities_csv(cities_filename);
-    std::vector<std::unique_ptr<City> > cities = std::vector<std::unique_ptr<City> >();
+    std::unique_ptr<std::vector<City> > cities = std::unique_ptr<std::vector<City> >( new std::vector<City>() );
     int id = 0;
     for(std::string line; std::getline(cities_csv, line); id++) {
         std::istringstream iss(line);
         std::string city_name;
         size_t capacity;
         iss >> city_name >> capacity;
-        std::unique_ptr<City> city(new City(id, city_name, capacity));
-        cities.push_back(std::move(city));
+        City city = City(id, city_name, capacity);
+        cities->push_back(std::move(city));
     }
 
-    std::cout<<cities.size()<<'\n';
+    std::cout<<cities->size()<<'\n';
 
-    std::shared_ptr<ConnectionMatrix> graph(new ConnectionMatrix(cities.size()));
+    std::shared_ptr<ConnectionMatrix> graph(new ConnectionMatrix(cities->size(), std::move(cities)));
 
     auto railways_filename = result["railways"].as<std::string >();
 
@@ -84,10 +62,34 @@ int main(int argc, char** argv){
         int a, b;
         unsigned int cost;
         iss>>a>>b>>cost;
-        Railway railway = {.cost= cost};
-        graph->addRailway(a, b, railway);
+        Railway railway(cost);
+        graph->addRailway(a, b, std::move(railway));
     }
 
+
+
+    auto trains_filename = result["trains"].as<std::string >();
+
+    std::ifstream trains_csv(trains_filename);
+    std::vector<std::unique_ptr<Train> > trains = std::vector<std::unique_ptr<Train> >();
+    for(std::string line; std::getline(trains_csv, line);) {
+        std::istringstream iss(line);
+        std::string train_name;
+        unsigned int start_city;
+        iss >> train_name >> start_city;
+        auto schedule = std::vector<int>();
+        for(int stop; !(iss>>stop);){
+            schedule.push_back(stop);
+        }
+
+        std::unique_ptr<Train> train(new Train(train_name, schedule, graph));
+        train->departure();
+        trains.push_back(std::move(train));
+    }
+
+    for (auto& train : trains) {
+        std::cout<<train->name<<'\n';
+    }
 //    // Create the main window
 //    sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "SFML window");
 //
@@ -136,6 +138,8 @@ int main(int argc, char** argv){
 //
 //        window.display();
 //    }
+
+    while (true);
 
 }
 

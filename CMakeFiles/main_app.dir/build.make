@@ -111,11 +111,41 @@ CMakeFiles/main_app.dir/src/city.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/main_app.dir/src/city.cpp.s"
 	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/kacperfilipiakprivate/Projects/University/SO2_rail_simulator/src/city.cpp -o CMakeFiles/main_app.dir/src/city.cpp.s
 
+CMakeFiles/main_app.dir/src/connectionmatrix.cpp.o: CMakeFiles/main_app.dir/flags.make
+CMakeFiles/main_app.dir/src/connectionmatrix.cpp.o: src/connectionmatrix.cpp
+CMakeFiles/main_app.dir/src/connectionmatrix.cpp.o: CMakeFiles/main_app.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/kacperfilipiakprivate/Projects/University/SO2_rail_simulator/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/main_app.dir/src/connectionmatrix.cpp.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main_app.dir/src/connectionmatrix.cpp.o -MF CMakeFiles/main_app.dir/src/connectionmatrix.cpp.o.d -o CMakeFiles/main_app.dir/src/connectionmatrix.cpp.o -c /Users/kacperfilipiakprivate/Projects/University/SO2_rail_simulator/src/connectionmatrix.cpp
+
+CMakeFiles/main_app.dir/src/connectionmatrix.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/main_app.dir/src/connectionmatrix.cpp.i"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/kacperfilipiakprivate/Projects/University/SO2_rail_simulator/src/connectionmatrix.cpp > CMakeFiles/main_app.dir/src/connectionmatrix.cpp.i
+
+CMakeFiles/main_app.dir/src/connectionmatrix.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/main_app.dir/src/connectionmatrix.cpp.s"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/kacperfilipiakprivate/Projects/University/SO2_rail_simulator/src/connectionmatrix.cpp -o CMakeFiles/main_app.dir/src/connectionmatrix.cpp.s
+
+CMakeFiles/main_app.dir/src/railway.cpp.o: CMakeFiles/main_app.dir/flags.make
+CMakeFiles/main_app.dir/src/railway.cpp.o: src/railway.cpp
+CMakeFiles/main_app.dir/src/railway.cpp.o: CMakeFiles/main_app.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/kacperfilipiakprivate/Projects/University/SO2_rail_simulator/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/main_app.dir/src/railway.cpp.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main_app.dir/src/railway.cpp.o -MF CMakeFiles/main_app.dir/src/railway.cpp.o.d -o CMakeFiles/main_app.dir/src/railway.cpp.o -c /Users/kacperfilipiakprivate/Projects/University/SO2_rail_simulator/src/railway.cpp
+
+CMakeFiles/main_app.dir/src/railway.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/main_app.dir/src/railway.cpp.i"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/kacperfilipiakprivate/Projects/University/SO2_rail_simulator/src/railway.cpp > CMakeFiles/main_app.dir/src/railway.cpp.i
+
+CMakeFiles/main_app.dir/src/railway.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/main_app.dir/src/railway.cpp.s"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/kacperfilipiakprivate/Projects/University/SO2_rail_simulator/src/railway.cpp -o CMakeFiles/main_app.dir/src/railway.cpp.s
+
 # Object files for target main_app
 main_app_OBJECTS = \
 "CMakeFiles/main_app.dir/main.cpp.o" \
 "CMakeFiles/main_app.dir/src/train.cpp.o" \
-"CMakeFiles/main_app.dir/src/city.cpp.o"
+"CMakeFiles/main_app.dir/src/city.cpp.o" \
+"CMakeFiles/main_app.dir/src/connectionmatrix.cpp.o" \
+"CMakeFiles/main_app.dir/src/railway.cpp.o"
 
 # External object files for target main_app
 main_app_EXTERNAL_OBJECTS =
@@ -123,12 +153,14 @@ main_app_EXTERNAL_OBJECTS =
 main_app: CMakeFiles/main_app.dir/main.cpp.o
 main_app: CMakeFiles/main_app.dir/src/train.cpp.o
 main_app: CMakeFiles/main_app.dir/src/city.cpp.o
+main_app: CMakeFiles/main_app.dir/src/connectionmatrix.cpp.o
+main_app: CMakeFiles/main_app.dir/src/railway.cpp.o
 main_app: CMakeFiles/main_app.dir/build.make
 main_app: /opt/homebrew/lib/libsfml-graphics.2.6.1.dylib
 main_app: /opt/homebrew/lib/libsfml-window.2.6.1.dylib
 main_app: /opt/homebrew/lib/libsfml-system.2.6.1.dylib
 main_app: CMakeFiles/main_app.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/kacperfilipiakprivate/Projects/University/SO2_rail_simulator/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable main_app"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/kacperfilipiakprivate/Projects/University/SO2_rail_simulator/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX executable main_app"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/main_app.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

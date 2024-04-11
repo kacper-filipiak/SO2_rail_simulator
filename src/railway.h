@@ -9,7 +9,12 @@
 
 struct Railway {
     unsigned int cost;
-    std::weak_ptr<Train> train;
+    std::unique_ptr<Train> train;
+    explicit Railway(unsigned int cost);
+    Railway(Railway&& other);
+    ~Railway();
+private:
+    Railway(const Railway& other);
 };
 
 #endif //SO2_RAIL_SIMULATOR_RAILWAY_H

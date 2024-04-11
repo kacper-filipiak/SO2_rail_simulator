@@ -177,6 +177,54 @@ src/city.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_app.dir/build.make CMakeFiles/main_app.dir/src/city.cpp.s
 .PHONY : src/city.cpp.s
 
+src/connectionmatrix.o: src/connectionmatrix.cpp.o
+.PHONY : src/connectionmatrix.o
+
+# target to build an object file
+src/connectionmatrix.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_app.dir/build.make CMakeFiles/main_app.dir/src/connectionmatrix.cpp.o
+.PHONY : src/connectionmatrix.cpp.o
+
+src/connectionmatrix.i: src/connectionmatrix.cpp.i
+.PHONY : src/connectionmatrix.i
+
+# target to preprocess a source file
+src/connectionmatrix.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_app.dir/build.make CMakeFiles/main_app.dir/src/connectionmatrix.cpp.i
+.PHONY : src/connectionmatrix.cpp.i
+
+src/connectionmatrix.s: src/connectionmatrix.cpp.s
+.PHONY : src/connectionmatrix.s
+
+# target to generate assembly for a file
+src/connectionmatrix.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_app.dir/build.make CMakeFiles/main_app.dir/src/connectionmatrix.cpp.s
+.PHONY : src/connectionmatrix.cpp.s
+
+src/railway.o: src/railway.cpp.o
+.PHONY : src/railway.o
+
+# target to build an object file
+src/railway.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_app.dir/build.make CMakeFiles/main_app.dir/src/railway.cpp.o
+.PHONY : src/railway.cpp.o
+
+src/railway.i: src/railway.cpp.i
+.PHONY : src/railway.i
+
+# target to preprocess a source file
+src/railway.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_app.dir/build.make CMakeFiles/main_app.dir/src/railway.cpp.i
+.PHONY : src/railway.cpp.i
+
+src/railway.s: src/railway.cpp.s
+.PHONY : src/railway.s
+
+# target to generate assembly for a file
+src/railway.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_app.dir/build.make CMakeFiles/main_app.dir/src/railway.cpp.s
+.PHONY : src/railway.cpp.s
+
 src/train.o: src/train.cpp.o
 .PHONY : src/train.o
 
@@ -216,6 +264,12 @@ help:
 	@echo "... src/city.o"
 	@echo "... src/city.i"
 	@echo "... src/city.s"
+	@echo "... src/connectionmatrix.o"
+	@echo "... src/connectionmatrix.i"
+	@echo "... src/connectionmatrix.s"
+	@echo "... src/railway.o"
+	@echo "... src/railway.i"
+	@echo "... src/railway.s"
 	@echo "... src/train.o"
 	@echo "... src/train.i"
 	@echo "... src/train.s"

@@ -26,5 +26,5 @@ ConnectionMatrix::~ConnectionMatrix() {
 }
 
 void ConnectionMatrix::addRailway(unsigned int a, unsigned int b, Railway railway) {
-    this->graph[a][b].push_back(railway);
+    this->graph[a][b].push_back(std::move(railway));
 }
