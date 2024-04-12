@@ -5,11 +5,11 @@
 #ifndef SO2_RAIL_SIMULATOR_RAILWAY_H
 #define SO2_RAIL_SIMULATOR_RAILWAY_H
 #include <memory>
-#include "train.h"
+#include "itrain.h"
 
 struct Railway {
     unsigned int cost;
-    std::unique_ptr<Train> train;
+    std::unique_ptr<ITrain> train;
     explicit Railway(unsigned int cost);
     Railway(Railway&& other);
     ~Railway();

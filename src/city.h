@@ -1,6 +1,6 @@
 #ifndef SO2_RW_CITY_H
 #define SO2_RW_CITY_H
-#include "train.h"
+#include "itrain.h"
 #include "railway.h"
 
 class City {
@@ -16,7 +16,7 @@ class City {
     int id;
     std::string name;
     //List off trains that are currently in the city
-    std::vector<std::unique_ptr<Train> > trains;
+    std::vector<std::unique_ptr<ITrain> > trains;
     size_t capacity;
 };
 
