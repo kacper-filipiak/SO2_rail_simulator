@@ -9,8 +9,9 @@
 
 struct Railway {
     unsigned int cost;
+    unsigned int cities[2];
     std::unique_ptr<ITrain> train;
-    explicit Railway(unsigned int cost);
+    explicit Railway(unsigned int city1, unsigned int city2, unsigned int cost);
     Railway(Railway&& other);
     ~Railway();
 private:

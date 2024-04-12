@@ -62,7 +62,7 @@ int main(int argc, char** argv){
         int a, b;
         unsigned int cost;
         iss>>a>>b>>cost;
-        Railway railway(cost);
+        Railway railway(a, b, cost);
         graph->addRailway(a, b, std::move(railway));
     }
 
