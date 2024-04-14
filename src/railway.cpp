@@ -18,3 +18,11 @@ Railway::Railway(Railway &&other) {
 
 Railway::~Railway() {
 }
+
+bool Railway::is_connected_to(unsigned int city) {
+    return this->cities[0] == city || this->cities[1] == city;
+}
+
+bool Railway::has_train(const std::shared_ptr<ITrain>& searched_train) const {
+    return this->train == searched_train
+}

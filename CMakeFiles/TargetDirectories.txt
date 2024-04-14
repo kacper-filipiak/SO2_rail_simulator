@@ -1,3 +1,0 @@
-/Users/kacperfilipiakprivate/Projects/University/SO2_rail_simulator/CMakeFiles/main_app.dir
-/Users/kacperfilipiakprivate/Projects/University/SO2_rail_simulator/CMakeFiles/edit_cache.dir
-/Users/kacperfilipiakprivate/Projects/University/SO2_rail_simulator/CMakeFiles/rebuild_cache.dir

@@ -3,6 +3,7 @@
 //
 
 #include <iostream>
+#include <memory>
 #include <thread>
 #include "src/utils.h"
 #include "include/cxxopts.hpp"
@@ -16,8 +17,17 @@
 #include "src/city.h"
 #include "src/railway.h"
 #include "src/connectionmatrix.h"
+#include <ranges>
 
 int main(int argc, char** argv){
+    if (__cplusplus == 202101L) std::cout << "C++23";
+    else if (__cplusplus == 202002L) std::cout << "C++20";
+    else if (__cplusplus == 201703L) std::cout << "C++17";
+    else if (__cplusplus == 201402L) std::cout << "C++14";
+    else if (__cplusplus == 201103L) std::cout << "C++11";
+    else if (__cplusplus == 199711L) std::cout << "C++98";
+    else std::cout << "pre-standard C++." << __cplusplus;
+    std::cout << "\n";
     // OPTIONS
     cxxopts::Options options("main_app", "Multithread, customizable animation of bees' lives");
 
@@ -36,26 +46,9 @@ int main(int argc, char** argv){
         exit(0);
     }
 
-    auto cities_filename = result["cities"].as<std::string >();
-
-    std::ifstream cities_csv(cities_filename);
-    std::unique_ptr<std::vector<City> > cities = std::unique_ptr<std::vector<City> >( new std::vector<City>() );
-    int id = 0;
-    for(std::string line; std::getline(cities_csv, line); id++) {
-        std::istringstream iss(line);
-        std::string city_name;
-        size_t capacity;
-        iss >> city_name >> capacity;
-        City city = City(id, city_name, capacity);
-        cities->push_back(std::move(city));
-    }
-
-    std::cout<<cities->size()<<'\n';
-
-    std::shared_ptr<ConnectionMatrix> graph(new ConnectionMatrix(cities->size(), std::move(cities)));
 
     auto railways_filename = result["railways"].as<std::string >();
-
+    auto railways = std::vector<std::shared_ptr<Railway> >();
     std::ifstream railways_csv(railways_filename);
     for(std::string line; std::getline(railways_csv, line);) {
         std::istringstream iss(line);
@@ -63,10 +56,28 @@ int main(int argc, char** argv){
         unsigned int cost;
         iss>>a>>b>>cost;
         Railway railway(a, b, cost);
-        graph->addRailway(a, b, std::move(railway));
+        railways.push_back(std::make_shared<Railway>(railway));
     }
 
+    auto cities_filename = result["cities"].as<std::string >();
 
+    std::ifstream cities_csv(cities_filename);
+    std::shared_ptr<std::vector<City> > cities = std::make_shared<std::vector<City> >( );
+    int id = 0;
+    for(std::string line; std::getline(cities_csv, line); id++) {
+        std::istringstream iss(line);
+        std::string city_name;
+        size_t capacity;
+        iss >> city_name >> capacity;
+        auto connected_rails = std::vector<std::shared_ptr<Railway> >();
+        for(const auto&  rail : railways | std::ranges::views::filter([id](const std::shared_ptr<Railway>& rw){ return rw->is_connected_to(id); })) {
+            connected_rails.push_back(rail);
+        }
+        City city = City(id, city_name, capacity, std::move(connected_rails));
+        cities->push_back(std::move(city));
+    }
+
+    std::cout<<cities->size()<<'\n';
 
     auto trains_filename = result["trains"].as<std::string >();
 
@@ -82,7 +93,7 @@ int main(int argc, char** argv){
             schedule.push_back(stop);
         }
 
-        std::unique_ptr<Train> train(new Train(train_name, schedule, graph));
+        std::unique_ptr<Train> train(new Train(train_name, schedule, cities));
         train->departure();
         trains.push_back(std::move(train));
     }

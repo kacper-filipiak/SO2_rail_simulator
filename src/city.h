@@ -2,12 +2,14 @@
 #define SO2_RW_CITY_H
 #include "itrain.h"
 #include "railway.h"
+#include <ranges>
 
 class City {
   public:
 //    Position pos;
-    City(int id, std::string name, size_t capacity);
+    City(int id, std::string name, size_t capacity, std::vector<std::shared_ptr<Railway> > railways);
     bool enter_city(Railway& railway);
+    std::shared_ptr<Railway> getRailwayWithTrain(std::shared_ptr<ITrain> train);
 //    bool leave_city(Train* train, Railway* railway);
 
     City(City&& other);
@@ -16,8 +18,11 @@ class City {
     int id;
     std::string name;
     //List off trains that are currently in the city
-    std::vector<std::unique_ptr<ITrain> > trains;
+    //Shouldn't copy move ptr instead
+    std::vector<std::shared_ptr<ITrain> > trains;
     size_t capacity;
+//    std::vector<std::shared_ptr<Railway> > railways;
+    std::vector<std::shared_ptr<Railway> > railways;
 };
 
 #endif

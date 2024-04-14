@@ -11,13 +11,13 @@
 class Train : public ITrain {
 public:
     std::string name;
-    explicit Train(std::string name, std::vector<int> schedule, std::weak_ptr<ConnectionMatrix> connectionMatrix);
-    std::thread departure();
-    ~Train() = default;
+    explicit Train(std::string name, std::vector<int> schedule, std::shared_ptr<std::vector<City > > cities);
+    std::thread departure() override;
+    ~Train() override = default;
 private:
     std::vector<int> schedule;
+    std::shared_ptr<std::vector<City > > cities;
     void travelling();
-    std::weak_ptr<ConnectionMatrix> connectionMatrix;
 };
 
 #endif

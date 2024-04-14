@@ -10,12 +10,15 @@
 struct Railway {
     unsigned int cost;
     unsigned int cities[2];
-    std::unique_ptr<ITrain> train;
+    //Shouldn't copy move ptr instead
+    std::shared_ptr<ITrain> train;
     explicit Railway(unsigned int city1, unsigned int city2, unsigned int cost);
     Railway(Railway&& other);
     ~Railway();
+    Railway(const Railway&) = default;
+    bool is_connected_to(unsigned int city);
+    bool has_train(const std::shared_ptr<ITrain>& train) const;
 private:
-    Railway(const Railway& other);
 };
 
 #endif //SO2_RAIL_SIMULATOR_RAILWAY_H

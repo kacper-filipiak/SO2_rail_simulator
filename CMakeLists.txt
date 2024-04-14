@@ -1,8 +1,8 @@
-cmake_minimum_required(VERSION 3.15)
+cmake_minimum_required(VERSION 3.5)
 project("SO2_rail_simulator")
 
 set(CMAKE_CXX_STANDARD 20)
-
+set(CXX_STANDARD_REQUIRED ON)
 
 
 set(SOURCES
