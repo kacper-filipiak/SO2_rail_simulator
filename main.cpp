@@ -107,7 +107,6 @@ int main(int argc, char** argv){
         std::cout<<"Starting: "<<train->id<<'\n';
         train->get_starting_city().add_train_to_city(train);
         trains_threads.push_back(std::move(train->departure()));
-        trains_threads.back()->join();
     }
     for(auto& thread : trains_threads) {
         thread->join();

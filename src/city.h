@@ -32,8 +32,8 @@ class City {
     //Shouldn't copy move ptr instead
     std::vector<std::shared_ptr<ITrain> > trains;
     size_t capacity;
-//    std::vector<std::shared_ptr<Railway> > railways;
     std::vector<std::shared_ptr<Railway> > railways;
+    std::mutex enter_mutex = std::mutex();
 };
 
 #endif

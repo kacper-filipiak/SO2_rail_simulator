@@ -9,15 +9,19 @@ City::City(int id, std::string name, size_t capacity) {
 }
 //Gets train from railway and move it to city if there is place (number of trains in city<capacity).
 bool City::enter_city(std::shared_ptr<Railway> railway) {
+    enter_mutex.lock();
     if(railway->train == nullptr) {
+        enter_mutex.unlock();
         return false;
     }
     //Add mutex here
     //Analyze case when there is last place (risk of deadlock). Maybe swap with one of trains in city
     if(this->trains.size() < capacity){
         this->trains.emplace_back(std::move(railway->train));
+        enter_mutex.unlock();
         return true;
     } else {
+        enter_mutex.unlock();
         return false;
     }
 }
@@ -48,15 +52,18 @@ std::unique_ptr<std::vector<std::shared_ptr<Railway> > > City::getRailwaysConnec
 }
 
 bool City::leave_city(ITrain *train, const std::shared_ptr<Railway>& railway) {
+    enter_mutex.lock();
     if(!railway->occupied()) {
-        for(std::vector<std::shared_ptr<ITrain> >::iterator tr = trains.begin(); tr != this->trains.end(); tr++) {
+        for(auto tr = trains.begin(); tr != this->trains.end(); tr++) {
             if((*tr)->id == train->id) {
-               railway->train = *tr;
+               railway->train = std::move(*tr);
                trains.erase(tr);
+               enter_mutex.unlock();
                return true;
             }
         }
     }
+    enter_mutex.unlock();
     return false;
 }
 
