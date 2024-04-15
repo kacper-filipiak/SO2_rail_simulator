@@ -9,14 +9,12 @@
 #include "include/cxxopts.hpp"
 #include <SFML/Graphics.hpp>
 #include "src/train.h"
-#include <memory>
 #include <vector>
 #include <string>
 #include <fstream>
 #include <sstream>
 #include "src/city.h"
 #include "src/railway.h"
-#include "src/connectionmatrix.h"
 #include <ranges>
 
 int main(int argc, char** argv){
@@ -32,9 +30,9 @@ int main(int argc, char** argv){
     cxxopts::Options options("main_app", "Multithread, customizable animation of bees' lives");
 
     options.add_options()
-            ("t,trains", "Trains csv filename", cxxopts::value<std::string>()->default_value("trains.csv"))
-            ("c,cities", "Cities csv filename", cxxopts::value<std::string>()->default_value("cities.csv"))
-            ("r,railways", "Railways csv filename", cxxopts::value<std::string>()->default_value("railways.csv"))
+            ("t,trains", "Trains csv filename", cxxopts::value<std::string>()->default_value("/Users/kacperfilipiakprivate/Projects/University/SO2_rail_simulator/trains.csv"))
+            ("c,cities", "Cities csv filename", cxxopts::value<std::string>()->default_value("/Users/kacperfilipiakprivate/Projects/University/SO2_rail_simulator/cities.csv"))
+            ("r,railways", "Railways csv filename", cxxopts::value<std::string>()->default_value("/Users/kacperfilipiakprivate/Projects/University/SO2_rail_simulator/railways.csv"))
             ("h,help", "Print help")
             ;
 
@@ -45,7 +43,6 @@ int main(int argc, char** argv){
         std::cout << options.help() << std::endl;
         exit(0);
     }
-
 
     auto railways_filename = result["railways"].as<std::string >();
     auto railways = std::vector<std::shared_ptr<Railway> >();
@@ -69,43 +66,47 @@ int main(int argc, char** argv){
         std::string city_name;
         size_t capacity;
         iss >> city_name >> capacity;
-        auto connected_rails = std::vector<std::shared_ptr<Railway> >();
+        auto connected_rails = std::vector<std::shared_ptr<Railway>>(std::vector<std::shared_ptr<Railway> >());
         for(const auto&  rail : railways | std::ranges::views::filter([id](const std::shared_ptr<Railway>& rw){ return rw->is_connected_to(id); })) {
             connected_rails.push_back(rail);
         }
-        City city = City(id, city_name, capacity, std::move(connected_rails));
-        cities->push_back(std::move(city));
+        cities->emplace_back(id, city_name, capacity, connected_rails);
     }
 
     std::cout<<cities->size()<<'\n';
 
     auto trains_filename = result["trains"].as<std::string >();
 
-    std::ifstream trains_csv(trains_filename);
+    std::ifstream trains_csv;
+    trains_csv.open(trains_filename);
     std::vector<std::shared_ptr<Train> > trains = std::vector<std::shared_ptr<Train> >();
+    if(!trains_csv.is_open()) {
+        throw std::ios_base::failure("Could not read file " + trains_filename);
+    }
     for(std::string line; std::getline(trains_csv, line);) {
         std::istringstream iss(line);
         int train_id;
-        unsigned int start_city;
-        iss >> train_id >> start_city;
+        iss >> train_id;
         auto schedule = std::vector<int>();
-        for(int stop; !(iss>>stop);){
+        int stop;
+        iss>>stop;
+        do {
             schedule.push_back(stop);
-        }
+        } while(iss>>stop);
 
         std::unique_ptr<Train> train(new Train(train_id, schedule, cities));
-        train->departure();
         trains.push_back(std::move(train));
     }
 
-    auto trains_threads = std::vector<std::thread>();
+    auto trains_threads = std::vector<std::unique_ptr<std::thread>>();
     for (auto& train : trains) {
         std::cout<<"Starting: "<<train->id<<'\n';
-        train->get_starting_city()->add_train_to_city(train);
-        trains_threads.push_back(train->departure());
+        train->get_starting_city().add_train_to_city(train);
+        trains_threads.push_back(std::move(train->departure()));
+        trains_threads.back()->join();
     }
     for(auto& thread : trains_threads) {
-        thread.join();
+        thread->join();
     }
 //    // Create the main window
 //    sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "SFML window");
@@ -156,7 +157,6 @@ int main(int argc, char** argv){
 //        window.display();
 //    }
 
-    while (true);
-
+    return 0;
 }
 

@@ -10,7 +10,7 @@
 
 class ITrain {
 public:
-    virtual std::thread departure() = 0;
+    virtual std::unique_ptr<std::thread> departure() = 0;
     virtual ~ITrain() {};
     int id;
 };

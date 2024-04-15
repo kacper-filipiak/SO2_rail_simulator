@@ -1,9 +1,11 @@
 #include "city.h"
 
+#include <utility>
+
 City::City(int id, std::string name, size_t capacity, std::vector<std::shared_ptr<Railway> > railways) {
     this->capacity = capacity;
     this->id = id;
-    this->name = name;
+    this->name = std::move(name);
     this->railways = railways;
 }
 //Gets train from railway and move it to city if there is place (number of trains in city<capacity).
@@ -15,7 +17,6 @@ bool City::enter_city(std::shared_ptr<Railway> railway) {
     //Analyze case when there is last place (risk of deadlock). Maybe swap with one of trains in city
     if(this->trains.size() < capacity){
         this->trains.emplace_back(std::move(railway->train));
-        railway->train = nullptr;
         return true;
     } else {
         return false;
@@ -44,7 +45,7 @@ std::unique_ptr<std::vector<std::shared_ptr<Railway> > > City::getRailwaysConnec
             [dest_id](const std::shared_ptr<Railway> &rw) { return rw->is_connected_to(dest_id); })) {
         connected_rails->push_back(rail);
     }
-    return std::move(connected_rails);
+    return connected_rails;
 }
 
 bool City::leave_city(ITrain *train, const std::shared_ptr<Railway>& railway) {

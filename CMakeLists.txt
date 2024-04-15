@@ -9,7 +9,6 @@ set(SOURCES
         main.cpp
         src/train.cpp
         src/city.cpp
-        src/connectionmatrix.cpp
         src/railway.cpp
 )
 

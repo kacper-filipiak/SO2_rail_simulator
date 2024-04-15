@@ -12,8 +12,8 @@
 class Train : public ITrain {
 public:
     explicit Train(int id, std::vector<int> schedule, std::shared_ptr<std::vector<City > > cities);
-    std::thread departure() override;
-    std::shared_ptr<City> get_starting_city();
+    std::unique_ptr<std::thread> departure() override;
+    City& get_starting_city();
     ~Train() override = default;
 private:
     std::vector<int> schedule;
