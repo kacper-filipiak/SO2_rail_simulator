@@ -108,58 +108,68 @@ int main(int argc, char** argv){
         train->get_starting_city().add_train_to_city(train);
         trains_threads.push_back(std::move(train->departure()));
     }
+    // Create the main window
+    sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "SFML window");
+
+    while (window.isOpen())
+    {
+        sf::Event event;
+        while (window.pollEvent(event))
+        {
+            if (event.type == sf::Event::Closed)
+                window.close();
+        }
+
+        sf::Texture city_texture;
+        if (!city_texture.loadFromFile("res/city.png"))
+        {
+            std::cout<< "ERROR: Could not load city.png";
+            break;
+        }
+
+        sf::Texture train_texture;
+        if (!train_texture.loadFromFile("res/train.png"))
+        {
+            std::cout<< "ERROR: Could not load train.png";
+            break;
+        }
+
+        window.clear();
+
+        sf::Sprite city_sprite;
+        sf::Sprite train_sprite;
+        sf::Text text;
+        sf::Font font;
+        if (!font.loadFromFile("res/Micro5Charted-Regular.ttf"))
+        {
+            std::cout<< "ERROR: Could not load ttf file";
+            break;
+        }
+        text.setFillColor(sf::Color::White);
+        text.setFont(font); // font is a sf::Font
+        text.setCharacterSize(24); // in pixels, not points!
+
+        train_sprite.setTexture(train_texture);
+        city_sprite.setTexture(city_texture);
+        int cursor_y = 0;
+        for(int i = 0; i < cities->size(); i++)
+        {
+
+            text.setPosition(2 * BLOCK_SIZE, cursor_y + 2 * i * BLOCK_SIZE);
+            text.setString("City: " + std::to_string(i));
+            window.draw(text);
+            city_sprite.setPosition(0, cursor_y + 2 * i * BLOCK_SIZE);
+            window.draw(city_sprite);
+            cities->at(i).draw_trains(BLOCK_SIZE * 4, cursor_y + 2 * i * BLOCK_SIZE, train_sprite, text, window);
+            cursor_y += cities->at(i).draw_railways(BLOCK_SIZE * 2, cursor_y + 2 * i * BLOCK_SIZE + BLOCK_SIZE, train_sprite, text, window);
+        }
+
+        window.display();
+    }
+
     for(auto& thread : trains_threads) {
         thread->join();
     }
-//    // Create the main window
-//    sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "SFML window");
-//
-//    while (window.isOpen())
-//    {
-//        sf::Event event;
-//        while (window.pollEvent(event))
-//        {
-//            if (event.type == sf::Event::Closed)
-//                window.close();
-//        }
-//
-//        sf::Texture grass_texture;
-//        if (!grass_texture.loadFromFile("res/grass.png"))
-//        {
-//            std::cout<< "ERROR: Could not load grass_texture grass.png";
-//            break;
-//        }
-//
-//        window.clear();
-//
-//        sf::Sprite grass_sprite;
-//        grass_sprite.setTexture(grass_texture);
-//
-//        for(int y = 0; y < NUMBER_OF_BLOCKS; y++)
-//            for(int i = 0; i < NUMBER_OF_BLOCKS; i++)
-//            {
-//                grass_sprite.setPosition(i * BLOCK_SIZE, y * BLOCK_SIZE);
-//                window.draw(grass_sprite);
-//            }
-//
-//
-//        sf::Texture bee_texture;
-//        if (!bee_texture.loadFromFile("res/bee.png"))
-//        {
-//            break;
-//        }
-//
-//        sf::Sprite bee_sprite;
-//        bee_sprite.setTexture(bee_texture);
-//        for(int i = 0; i < bees_count; i++)
-//        {
-//            bee_sprite.setPosition(bees[i].pos.x * BLOCK_SIZE, bees[i].pos.y * BLOCK_SIZE);
-//            window.draw(bee_sprite);
-//        }
-//
-//        window.display();
-//    }
-
     return 0;
 }
 

@@ -4,6 +4,7 @@
 #include "railway.h"
 #include <ranges>
 #include <iostream>
+#include <SFML/Graphics.hpp>
 
 class City {
   public:
@@ -15,6 +16,8 @@ class City {
     bool leave_city(ITrain* train, const std::shared_ptr<Railway>& railway);
     bool add_train_to_city(std::shared_ptr<ITrain> tr);
     void add_rail_to_city(std::shared_ptr<Railway> rw);
+    unsigned int draw_trains(unsigned int x, unsigned int y, sf::Sprite sprite, sf::Text text, sf::RenderWindow& window);
+    unsigned int draw_railways(unsigned int x, unsigned int y, sf::Sprite sprite, sf::Text text, sf::RenderWindow& window);
 
     friend std::ostream& operator<< ( std::ostream& outs, const City& obj ) {
         return outs << "City: { "

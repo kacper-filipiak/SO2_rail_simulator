@@ -1,4 +1,5 @@
 #include "city.h"
+#include "utils.h"
 
 #include <utility>
 
@@ -79,4 +80,23 @@ bool City::add_train_to_city(std::shared_ptr<ITrain> tr) {
 
 void City::add_rail_to_city(std::shared_ptr<Railway> rw) {
     this->railways.push_back(rw);
+}
+
+unsigned int City::draw_trains(unsigned int x, unsigned int y, sf::Sprite sprite, sf::Text text, sf::RenderWindow& window) {
+    for(int i = 0; i < trains.size(); i++) {
+        text.setPosition(x + BLOCK_SIZE + i * 4 * BLOCK_SIZE, y );
+        text.setString("Train: " + std::to_string(trains[i]->id));
+        window.draw(text);
+        sprite.setPosition(x + i * 4 * BLOCK_SIZE, y );
+        window.draw(sprite);
+    }
+    return 0;
+}
+
+unsigned int
+City::draw_railways(unsigned int x, unsigned int y, sf::Sprite sprite, sf::Text text, sf::RenderWindow &window) {
+    for(int i = 0; i < railways.size(); i++) {
+        railways.at(i)->draw(x, y + 2*i * BLOCK_SIZE, sprite, text, window);
+    }
+    return 2*BLOCK_SIZE*railways.size();
 }

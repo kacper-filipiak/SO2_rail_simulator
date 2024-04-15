@@ -7,6 +7,7 @@
 #include <memory>
 #include "itrain.h"
 #include <ostream>
+#include <SFML/Graphics.hpp>
 
 class Railway {
 public:
@@ -21,6 +22,7 @@ public:
     bool is_connected_to(unsigned int city);
     [[nodiscard]] bool has_train(int train) const;
     bool occupied();
+    void draw(unsigned int x, unsigned int y, sf::Sprite sprite, sf::Text text, sf::RenderWindow &window);
     friend std::ostream& operator<< ( std::ostream& outs, const Railway& obj ) {
         return outs << "Railway: { " << "cities: " << obj.cities[0] <<" - " << obj.cities[1] << ", " << "cost: " << obj.cost <<", " << "train: " << obj.train->id <<"} \n";
     }
