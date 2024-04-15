@@ -2,11 +2,10 @@
 
 #include <utility>
 
-City::City(int id, std::string name, size_t capacity, std::vector<std::shared_ptr<Railway> > railways) {
+City::City(int id, std::string name, size_t capacity) {
     this->capacity = capacity;
     this->id = id;
     this->name = std::move(name);
-    this->railways = railways;
 }
 //Gets train from railway and move it to city if there is place (number of trains in city<capacity).
 bool City::enter_city(std::shared_ptr<Railway> railway) {
@@ -50,9 +49,10 @@ std::unique_ptr<std::vector<std::shared_ptr<Railway> > > City::getRailwaysConnec
 
 bool City::leave_city(ITrain *train, const std::shared_ptr<Railway>& railway) {
     if(!railway->occupied()) {
-        for(auto& tr : this->trains) {
-            if(tr->id == train->id) {
-               railway->train.swap(tr);
+        for(std::vector<std::shared_ptr<ITrain> >::iterator tr = trains.begin(); tr != this->trains.end(); tr++) {
+            if((*tr)->id == train->id) {
+               railway->train = *tr;
+               trains.erase(tr);
                return true;
             }
         }
@@ -68,4 +68,8 @@ bool City::add_train_to_city(std::shared_ptr<ITrain> tr) {
     } else {
         return false;
     }
+}
+
+void City::add_rail_to_city(std::shared_ptr<Railway> rw) {
+    this->railways.push_back(rw);
 }

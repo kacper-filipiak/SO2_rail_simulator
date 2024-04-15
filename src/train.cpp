@@ -20,6 +20,8 @@ void Train::travelling() {
     try {
         while (true) {
             for (auto destination: schedule) {
+                std::cout << "Waiting on station " << source << "\n";
+                std::this_thread::sleep_for(std::chrono::milliseconds(1000));
                 auto &source_city = cities->at(source);
                 auto &dest_city = cities->at(destination);
                 auto rails_to_dest = source_city.getRailwaysConnectedTo(dest_city);
@@ -49,8 +51,6 @@ void Train::travelling() {
                 } else {
                     std::cout << "Train " << id << " gone missing!\n";
                 }
-                std::cout << "Waiting on station " << id << "\n";
-                std::this_thread::sleep_for(std::chrono::milliseconds(1000));
             }
             std::cout << "travelling " << id << "!!!\n";
         }

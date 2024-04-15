@@ -66,11 +66,15 @@ int main(int argc, char** argv){
         std::string city_name;
         size_t capacity;
         iss >> city_name >> capacity;
-        auto connected_rails = std::vector<std::shared_ptr<Railway>>(std::vector<std::shared_ptr<Railway> >());
-        for(const auto&  rail : railways | std::ranges::views::filter([id](const std::shared_ptr<Railway>& rw){ return rw->is_connected_to(id); })) {
-            connected_rails.push_back(rail);
+        cities->push_back(City(id, city_name, capacity));
+        auto connected_rails = std::vector<std::shared_ptr<Railway>>();
+    }
+    for(auto& city : *cities) {
+        for (const auto &rail: railways) {
+            if (rail->is_connected_to(city.id)) {
+                city.add_rail_to_city(rail);
+            }
         }
-        cities->emplace_back(id, city_name, capacity, connected_rails);
     }
 
     std::cout<<cities->size()<<'\n';
