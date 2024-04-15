@@ -11,8 +11,8 @@
 class ITrain {
 public:
     virtual std::thread departure() = 0;
-
     virtual ~ITrain() {};
+    int id;
 };
 
 #endif //SO2_RAIL_SIMULATOR_ITRAIN_H

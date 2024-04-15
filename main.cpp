@@ -82,24 +82,30 @@ int main(int argc, char** argv){
     auto trains_filename = result["trains"].as<std::string >();
 
     std::ifstream trains_csv(trains_filename);
-    std::vector<std::unique_ptr<Train> > trains = std::vector<std::unique_ptr<Train> >();
+    std::vector<std::shared_ptr<Train> > trains = std::vector<std::shared_ptr<Train> >();
     for(std::string line; std::getline(trains_csv, line);) {
         std::istringstream iss(line);
-        std::string train_name;
+        int train_id;
         unsigned int start_city;
-        iss >> train_name >> start_city;
+        iss >> train_id >> start_city;
         auto schedule = std::vector<int>();
         for(int stop; !(iss>>stop);){
             schedule.push_back(stop);
         }
 
-        std::unique_ptr<Train> train(new Train(train_name, schedule, cities));
+        std::unique_ptr<Train> train(new Train(train_id, schedule, cities));
         train->departure();
         trains.push_back(std::move(train));
     }
 
+    auto trains_threads = std::vector<std::thread>();
     for (auto& train : trains) {
-        std::cout<<train->name<<'\n';
+        std::cout<<"Starting: "<<train->id<<'\n';
+        train->get_starting_city()->add_train_to_city(train);
+        trains_threads.push_back(train->departure());
+    }
+    for(auto& thread : trains_threads) {
+        thread.join();
     }
 //    // Create the main window
 //    sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "SFML window");

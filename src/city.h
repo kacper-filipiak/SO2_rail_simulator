@@ -3,15 +3,25 @@
 #include "itrain.h"
 #include "railway.h"
 #include <ranges>
+#include <iostream>
 
 class City {
   public:
 //    Position pos;
     City(int id, std::string name, size_t capacity, std::vector<std::shared_ptr<Railway> > railways);
-    bool enter_city(Railway& railway);
-    std::shared_ptr<Railway> getRailwayWithTrain(std::shared_ptr<ITrain> train);
-//    bool leave_city(Train* train, Railway* railway);
+    bool enter_city(std::shared_ptr<Railway> railway);
+    std::shared_ptr<Railway> getRailwayWithTrain(int train_id);
+    std::unique_ptr<std::vector<std::shared_ptr<Railway> > > getRailwaysConnectedTo(const City& dest_city);
+    bool leave_city(ITrain* train, const std::shared_ptr<Railway>& railway);
+    bool add_train_to_city(std::shared_ptr<ITrain> tr);
 
+    friend std::ostream& operator<< ( std::ostream& outs, const City& obj ) {
+        return outs << "City: { "
+        << "id: " << obj.id <<", "
+                << "train_count: " << obj.trains.size() <<", "
+                << "capacity: " << obj.capacity <<", "
+                << "railways_count: " << obj.railways.size() <<"} \n";
+    }
     City(City&& other);
   private:
     City(const City&) = default;

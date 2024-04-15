@@ -6,18 +6,18 @@
 #include <iostream>
 #include "itrain.h"
 #include "connectionmatrix.h"
+#include <chrono>
 
 //Trains should have current position (Railway or City with common interface extracted to omit circular dependency)
 class Train : public ITrain {
 public:
-    std::string name;
-    explicit Train(std::string name, std::vector<int> schedule, std::shared_ptr<std::vector<City > > cities);
+    explicit Train(int id, std::vector<int> schedule, std::shared_ptr<std::vector<City > > cities);
     std::thread departure() override;
+    std::shared_ptr<City> get_starting_city();
     ~Train() override = default;
 private:
     std::vector<int> schedule;
     std::shared_ptr<std::vector<City > > cities;
     void travelling();
 };
-
 #endif

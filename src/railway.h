@@ -6,8 +6,10 @@
 #define SO2_RAIL_SIMULATOR_RAILWAY_H
 #include <memory>
 #include "itrain.h"
+#include <ostream>
 
-struct Railway {
+class Railway {
+public:
     unsigned int cost;
     unsigned int cities[2];
     //Shouldn't copy move ptr instead
@@ -17,7 +19,12 @@ struct Railway {
     ~Railway();
     Railway(const Railway&) = default;
     bool is_connected_to(unsigned int city);
-    bool has_train(const std::shared_ptr<ITrain>& train) const;
+    [[nodiscard]] bool has_train(int train) const;
+    bool occupied();
+    friend std::ostream& operator<< ( std::ostream& outs, const Railway& obj ) {
+        return outs << "Railway: { " << "cities: " << obj.cities[0] <<" - " << obj.cities[1] << ", " << "cost: " << obj.cost <<", " << "train: " << obj.train->id <<"} \n";
+    }
+
 private:
 };
 
