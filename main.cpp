@@ -156,7 +156,7 @@ int main(int argc, char** argv){
         {
 
             text.setPosition(2 * BLOCK_SIZE, cursor_y + 2 * i * BLOCK_SIZE);
-            text.setString("City: " + std::to_string(i));
+            text.setString("City: " + std::to_string(i) + " " + std::to_string(cities->at(i).is_locked()));
             window.draw(text);
             city_sprite.setPosition(0, cursor_y + 2 * i * BLOCK_SIZE);
             window.draw(city_sprite);
