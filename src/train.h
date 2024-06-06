@@ -5,7 +5,7 @@
 #include <thread>
 #include <iostream>
 #include "itrain.h"
-#include "connectionmatrix.h"
+#include "city.h"
 #include <chrono>
 
 //Trains should have current position (Railway or City with common interface extracted to omit circular dependency)

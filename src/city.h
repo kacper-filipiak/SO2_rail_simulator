@@ -8,7 +8,6 @@
 
 class City {
   public:
-//    Position pos;
     City(int id, std::string name, size_t capacity);
     bool enter_city(std::shared_ptr<Railway> railway, unsigned int train_id);
     std::shared_ptr<Railway> getRailwayWithTrain(int train_id);
@@ -19,12 +18,7 @@ class City {
     unsigned int draw_trains(unsigned int x, unsigned int y, sf::Sprite sprite, sf::Text text, sf::RenderWindow& window);
     unsigned int draw_railways(unsigned int x, unsigned int y, sf::Sprite sprite, sf::Text text, sf::RenderWindow& window);
     bool has_train(int train_id);
-    bool is_locked() {if(enter_mutex.try_lock()) {
-        enter_mutex.unlock();
-        return true;
-    }
-        return false;
-    }
+
 
     friend std::ostream& operator<< ( std::ostream& outs, const City& obj ) {
         return outs << "City: { "
@@ -36,7 +30,6 @@ class City {
     City(City&& other) noexcept ;
     int id;
   private:
-//    City(const City&) = default;
     std::string name;
     //List off trains that are currently in the city
     //Shouldn't copy move ptr instead
@@ -45,7 +38,6 @@ class City {
     std::vector<std::shared_ptr<Railway> > railways;
     std::mutex enter_mutex = std::mutex();
 
-//    bool leave_city(std::shared_ptr<ITrain> &train, std::shared_ptr<Railway> railway);
 };
 
 #endif

@@ -18,18 +18,6 @@ bool City::enter_city(std::shared_ptr<Railway> railway, unsigned int train_id) {
         std::cout<<"Entered city: " << this->id << " by train: " << train_id << '\n';
         return std::any_of(this->trains.begin(), this->trains.end(), [&train_id](auto& tr) {return tr != nullptr && tr->id == train_id;});
     }
-//    if(trains.size() >= capacity - 1 && !std::any_of(trains.begin(), trains.end(),[&railway](auto& tr){
-//        tr->mutex.lock();
-//        auto dest = tr->destination;
-//        tr->mutex.unlock();
-//        railway->mut->unlock();
-//        return railway->is_connected_to(dest);
-//    })) {
-//        enter_mutex.unlock();
-//        return false;
-//    }
-    //Add mutex here
-    //Analyze case when there is last place (risk of deadlock). Maybe swap with one of trains in city
     if(this->trains.size() < capacity){
         std::cout<<"Enter city: " << this->id << " by train: " << train_id << '\n';
         this->trains.emplace_back(std::move(railway->train));

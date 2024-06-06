@@ -30,7 +30,7 @@ public:
 
     void draw(unsigned int x, unsigned int y, sf::Sprite sprite, sf::Text text, sf::RenderWindow &window);
 
-    bool is_locked(){if(mut->try_lock()) {
+    bool is_locked() const{if(mut->try_lock()) {
             mut->unlock();
             return true;
         }
