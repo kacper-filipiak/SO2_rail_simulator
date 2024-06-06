@@ -15,6 +15,7 @@ public:
     int id;
     unsigned int destination;
     unsigned int source_i = 0;
+    bool idle = true;
     std::mutex mutex;
 
     bool is_locked(){if(mutex.try_lock()) {

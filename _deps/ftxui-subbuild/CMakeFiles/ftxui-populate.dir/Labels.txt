@@ -1,0 +1,14 @@
+# Target labels
+ ftxui-populate
+# Source files and their labels
+/Users/kacperfilipiakprivate/Projects/University/SO2_rail_simulator/_deps/ftxui-subbuild/CMakeFiles/ftxui-populate
+/Users/kacperfilipiakprivate/Projects/University/SO2_rail_simulator/_deps/ftxui-subbuild/CMakeFiles/ftxui-populate.rule
+/Users/kacperfilipiakprivate/Projects/University/SO2_rail_simulator/_deps/ftxui-subbuild/CMakeFiles/ftxui-populate-complete.rule
+/Users/kacperfilipiakprivate/Projects/University/SO2_rail_simulator/_deps/ftxui-subbuild/ftxui-populate-prefix/src/ftxui-populate-stamp/ftxui-populate-build.rule
+/Users/kacperfilipiakprivate/Projects/University/SO2_rail_simulator/_deps/ftxui-subbuild/ftxui-populate-prefix/src/ftxui-populate-stamp/ftxui-populate-configure.rule
+/Users/kacperfilipiakprivate/Projects/University/SO2_rail_simulator/_deps/ftxui-subbuild/ftxui-populate-prefix/src/ftxui-populate-stamp/ftxui-populate-download.rule
+/Users/kacperfilipiakprivate/Projects/University/SO2_rail_simulator/_deps/ftxui-subbuild/ftxui-populate-prefix/src/ftxui-populate-stamp/ftxui-populate-install.rule
+/Users/kacperfilipiakprivate/Projects/University/SO2_rail_simulator/_deps/ftxui-subbuild/ftxui-populate-prefix/src/ftxui-populate-stamp/ftxui-populate-mkdir.rule
+/Users/kacperfilipiakprivate/Projects/University/SO2_rail_simulator/_deps/ftxui-subbuild/ftxui-populate-prefix/src/ftxui-populate-stamp/ftxui-populate-patch.rule
+/Users/kacperfilipiakprivate/Projects/University/SO2_rail_simulator/_deps/ftxui-subbuild/ftxui-populate-prefix/src/ftxui-populate-stamp/ftxui-populate-test.rule
+/Users/kacperfilipiakprivate/Projects/University/SO2_rail_simulator/_deps/ftxui-subbuild/ftxui-populate-prefix/src/ftxui-populate-stamp/ftxui-populate-update.rule

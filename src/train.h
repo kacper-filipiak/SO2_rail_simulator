@@ -20,7 +20,6 @@ private:
     std::vector<int> schedule;
     std::shared_ptr<std::vector<City > > cities;
     void travelling();
-    bool idle = true;
     std::shared_ptr<std::mutex> mut = std::make_shared<std::mutex>();
 };
 #endif

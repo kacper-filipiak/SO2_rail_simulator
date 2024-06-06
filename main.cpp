@@ -93,10 +93,12 @@ int main(int argc, char** argv){
         iss >> train_id;
         auto schedule = std::vector<int>();
         int stop;
-        iss>>stop;
-        do {
+        std::cout<<train_id << " :stops: ";
+        while(iss>>stop) {
+            std::cout<< stop << " -> ";
             schedule.push_back(stop);
-        } while(iss>>stop);
+        }
+        std::cout<<'\n';
 
         std::unique_ptr<Train> train(new Train(train_id, schedule, cities));
         trains.push_back(std::move(train));
@@ -156,7 +158,7 @@ int main(int argc, char** argv){
         {
 
             text.setPosition(2 * BLOCK_SIZE, cursor_y + 2 * i * BLOCK_SIZE);
-            text.setString("City: " + std::to_string(i) + " " + std::to_string(cities->at(i).is_locked()));
+            text.setString("City: " + std::to_string(i));
             window.draw(text);
             city_sprite.setPosition(0, cursor_y + 2 * i * BLOCK_SIZE);
             window.draw(city_sprite);

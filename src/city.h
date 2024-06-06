@@ -13,11 +13,12 @@ class City {
     bool enter_city(std::shared_ptr<Railway> railway, unsigned int train_id);
     std::shared_ptr<Railway> getRailwayWithTrain(int train_id);
     std::unique_ptr<std::vector<std::shared_ptr<Railway> > > getRailwaysConnectedTo(const City& dest_city);
-    bool leave_city(ITrain* train, std::vector<std::shared_ptr<Railway>>::iterator railway);
+    bool leave_city(ITrain* train, std::shared_ptr<Railway> railway);
     bool add_train_to_city(std::shared_ptr<ITrain> tr);
     void add_rail_to_city(std::shared_ptr<Railway> rw);
     unsigned int draw_trains(unsigned int x, unsigned int y, sf::Sprite sprite, sf::Text text, sf::RenderWindow& window);
     unsigned int draw_railways(unsigned int x, unsigned int y, sf::Sprite sprite, sf::Text text, sf::RenderWindow& window);
+    bool has_train(int train_id);
     bool is_locked() {if(enter_mutex.try_lock()) {
         enter_mutex.unlock();
         return true;
@@ -43,6 +44,8 @@ class City {
     size_t capacity;
     std::vector<std::shared_ptr<Railway> > railways;
     std::mutex enter_mutex = std::mutex();
+
+//    bool leave_city(std::shared_ptr<ITrain> &train, std::shared_ptr<Railway> railway);
 };
 
 #endif
