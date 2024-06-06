@@ -93,10 +93,12 @@ int main(int argc, char** argv){
         iss >> train_id;
         auto schedule = std::vector<int>();
         int stop;
-        iss>>stop;
-        do {
+        std::cout<<train_id << " :stops: ";
+        while(iss>>stop) {
+            std::cout<< stop << " -> ";
             schedule.push_back(stop);
-        } while(iss>>stop);
+        }
+        std::cout<<'\n';
 
         std::unique_ptr<Train> train(new Train(train_id, schedule, cities));
         trains.push_back(std::move(train));

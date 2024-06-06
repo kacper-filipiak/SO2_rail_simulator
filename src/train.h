@@ -15,9 +15,11 @@ public:
     std::unique_ptr<std::thread> departure() override;
     City& get_starting_city();
     ~Train() override = default;
+    bool is_idle() override;
 private:
     std::vector<int> schedule;
     std::shared_ptr<std::vector<City > > cities;
     void travelling();
+    std::shared_ptr<std::mutex> mut = std::make_shared<std::mutex>();
 };
 #endif
