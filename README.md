@@ -6,6 +6,8 @@ Program simulates and displays weighted graph where vertices are cities and edge
 - There are trains that can travel between citties. 
 - In each city can be finite number of trains at the same time. 
 - On one railway can be only one train at once. 
-- Passangers can get onto and off the train in the city.
-- One passanger occupy one seat in a train.
 - Routes for trains are prefefined and passed as parameter/in file
+- When railway is popular it gets red
+- When railway over time if not used get white color
+
+<img width="958" alt="Screenshot 2024-06-07 at 00 38 20" src="https://github.com/kacper-filipiak/SO2_rail_simulator/assets/43151465/688139ba-7eeb-4ceb-9e84-d89cd55c544f">
