@@ -11,3 +11,4 @@ Program simulates and displays weighted graph where vertices are cities and edge
 - When railway over time if not used get white color
 
 <img width="958" alt="Screenshot 2024-06-07 at 00 38 20" src="https://github.com/kacper-filipiak/SO2_rail_simulator/assets/43151465/688139ba-7eeb-4ceb-9e84-d89cd55c544f">
+<img width="958" alt="Screenshot 2024-06-07 at 00 51 58" src="https://github.com/kacper-filipiak/SO2_rail_simulator/assets/43151465/c50c0677-622a-4d16-a1cc-a3e885dbde5c">
