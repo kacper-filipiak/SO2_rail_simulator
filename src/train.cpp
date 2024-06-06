@@ -18,15 +18,12 @@ std::unique_ptr<std::thread> Train::departure() {
 void Train::travelling() {
     this->mut->lock();
     idle = false;
-//    this->mut->unlock();
     int source = schedule.back();
     source_i = source;
     try {
         while (true) {
             for (auto _destination = schedule.begin(); _destination != schedule.end(); ) {
-//                mutex.lock();
                 destination = *(_destination);
-//                mutex.unlock();
                 std::cout << "Waiting on station " << source << "\n";
                 this->mut->unlock();
                 std::this_thread::sleep_for(std::chrono::milliseconds(1000));
@@ -43,7 +40,7 @@ void Train::travelling() {
                     while (!leaved_city) {
                         if (source != source_city.id)
                             std::cout << "Train " << id << " at " << dest_city << " with wrong source: " << source
-                                      << "can't leave \n";//<< " using " << rail << " rail\n";
+                                      << "can't leave \n";
                         for (auto &rail: *rails_to_dest) {
                             if (source_city.leave_city(this, rail)) {
                                 railway = rail;
@@ -69,15 +66,12 @@ void Train::travelling() {
                     auto rail = source_city.getRailwayWithTrain(id);
 
                     if (rail != nullptr) {
-//                    this->mut->lock();
                         idle = true;
-//                    this->mut->unlock();
                         //Try to enter the city till success
                         this->mut->unlock();
                         while (!dest_city.enter_city(rail, this->id));
                         this->mut->lock();
                         idle = false;
-//                    this->mut->unlock();
                         std::cout << "Train " << id << " arrived to " << dest_city
                                   << '\n';//<< " using " << rail << " rail\n";
                         source = destination;
@@ -87,11 +81,9 @@ void Train::travelling() {
                                       << '\n';//<< " using " << rail << " rail\n";
                     } else {
                         std::cout << "Train " << id << " gone missing!\n";
-//                    source = destination;
-//                    source_i = source;
                         if (source != dest_city.id)
                             std::cout << "Train " << id << " at " << dest_city << " with wrong source: " << source
-                                      << '\n';//<< " using " << rail << " rail\n";
+                                      << '\n';
                     }
                 }
                 if(dest_city.has_train(id)) {
@@ -133,8 +125,6 @@ City& Train::get_starting_city() {
 }
 
 bool Train::is_idle() {
-//    this->mut->lock();
         auto is_idle = idle;
-//    this->mut->unlock();
     return is_idle;
 }
